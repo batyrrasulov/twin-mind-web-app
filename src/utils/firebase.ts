@@ -8,13 +8,13 @@ import { getAuth, GoogleAuthProvider } from 'firebase/auth';
 
 // my web app's Firebase config
 const firebaseConfig = {
-  apiKey: "AIzaSyCwHm9gJJStepSSJl-KC1_dZlftXZFGa_Q",
-  authDomain: "test-twin-mind-web-app.firebaseapp.com",
-  projectId: "test-twin-mind-web-app",
-  storageBucket: "test-twin-mind-web-app.firebasestorage.app",
-  messagingSenderId: "138501918326",
-  appId: "1:138501918326:web:fe0cbbfcd76dfac9a25957",
-  measurementId: "G-XRBNK4F61N"
+  apiKey: process.env.FIREBASE_API_KEY,
+  authDomain: process.env.FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.FIREBASE_PROJECT_ID,
+  storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.FIREBASE_APP_ID,
+  measurementId: process.env.FIREBASE_MEASUREMENT_ID,
 };
 
 // init FB
