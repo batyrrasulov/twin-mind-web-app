@@ -1,4 +1,6 @@
-// src/components/ErrorToast.tsx
+
+// src/components/ErrorToast.tsx by rasulov
+
 import React, { useEffect } from 'react';
 
 interface ErrorToastProps {
@@ -13,6 +15,8 @@ const ErrorToast: React.FC<ErrorToastProps> = ({
   duration = 5000 
 }) => {
   useEffect(() => {
+
+    // set up a time to auto-close 
     const timer = setTimeout(() => {
       onClose();
     }, duration);

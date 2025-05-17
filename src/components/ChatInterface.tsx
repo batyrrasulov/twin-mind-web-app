@@ -1,4 +1,6 @@
-// src/components/ChatInterface.tsx
+
+// src/components/ChatInterface.tsx by rasulov
+
 import React, { useState, useRef, useEffect } from 'react';
 import { ChatMessage, TranscriptionChunk } from '../types';
 import { mockStreamingResponse } from '../utils/mockData';
@@ -14,11 +16,24 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({
   onNewMessage,
   messages
 }) => {
+  // fUn? huh
+
+  // state for user input
   const [inputValue, setInputValue] = useState('');
+
+  // are we waiting for ai to finish ?
   const [isGenerating, setIsGenerating] = useState(false);
+
+  // text curr being streamed out by ai
   const [streamingText, setStreamingText] = useState('');
+
+  // show a typing indicator for user while ai "thinking"
   const [typingIndicator, setTypingIndicator] = useState(false);
+
+  // ref to scroll to bottom of the chat
   const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  // for cleaning up typing timeouts
   const typingTimeoutRef = useRef<NodeJS.Timeout>();
 
   const simulateTyping = async (text: string) => {
@@ -35,12 +50,13 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({
     return currentText;
   };
 
+  // DO NOT SUBMIT A question (wait, no actually DO it's good)
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     if (!inputValue.trim() || isGenerating) return;
     
-    // Add user message
+    // add user message
     const userMessage: ChatMessage = {
       id: Date.now().toString(),
       text: inputValue,
@@ -51,20 +67,19 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({
     onNewMessage(userMessage);
     setInputValue('');
     
-    // Start AI response generation
+    // start AI response generation
     setIsGenerating(true);
     setStreamingText('');
     
-    // Simulate thinking delay
     await new Promise(resolve => setTimeout(resolve, 1000));
     
-    // Get streaming response
+    // get streaming response
     const responseText = mockStreamingResponse(inputValue).join(' ');
     
-    // Simulate typing the response
+    // AI typing out its response
     const fullResponse = await simulateTyping(responseText);
     
-    // Add final AI message
+    // add final AI message
     const aiMessage: ChatMessage = {
       id: (Date.now() + 1).toString(),
       text: fullResponse,
@@ -77,12 +92,12 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({
     setStreamingText('');
   };
 
-  // Scroll to bottom when new messages arrive
+  // scroll to the bottom autoscroll msg for streaming
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, streamingText]);
 
-  // Cleanup typing timeout
+  // clean up (java I) typing timeout
   useEffect(() => {
     return () => {
       if (typingTimeoutRef.current) {

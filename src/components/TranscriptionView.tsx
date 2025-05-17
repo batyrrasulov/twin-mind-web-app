@@ -1,4 +1,6 @@
-// src/components/TranscriptionView.tsx
+
+// src/components/TranscriptionView.tsx by rasulov
+
 import React from 'react';
 import { TranscriptionChunk } from '../types';
 
@@ -7,7 +9,7 @@ interface TranscriptionViewProps {
 }
 
 const TranscriptionView: React.FC<TranscriptionViewProps> = ({ chunks }) => {
-  // Format timestamp
+  // format timestamp
   const formatTime = (timestamp: number): string => {
     const date = new Date(timestamp);
     return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
@@ -19,6 +21,7 @@ const TranscriptionView: React.FC<TranscriptionViewProps> = ({ chunks }) => {
       
       <div className="border rounded-md bg-gray-50 p-4 max-h-80 overflow-y-auto">
         {chunks.length === 0 ? (
+          // no transcription chunks? => show sum msg
           <p className="text-text-secondary text-center py-8">
             Recording will appear here. Start recording to begin transcription.
           </p>

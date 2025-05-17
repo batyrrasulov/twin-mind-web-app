@@ -1,4 +1,6 @@
-// src/components/AudioRecorder.tsx
+
+// src/components/AudioRecorder.tsx by rasulov
+
 import React, { useState, useEffect, useCallback } from 'react';
 import { AudioRecorder as AudioRecorderUtil, mockTranscribeAudio } from '../utils/audioRecorder';
 import { TranscriptionChunk } from '../types';
@@ -12,19 +14,28 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({
   onTranscriptionUpdate,
   onError
 }) => {
+
+  // are we currently recording (track it)
   const [isRecording, setIsRecording] = useState(false);
+
+  // store reorder instance so we can start/stop anytime
   const [recorder, setRecorder] = useState<AudioRecorderUtil | null>(null);
+
+  // keep track of how long we been recording
   const [elapsedTime, setElapsedTime] = useState(0);
+
+  // use to show if we recording processing or idle
   const [recordingState, setRecordingState] = useState<'inactive' | 'recording' | 'processing'>('inactive');
   
-  // Handle audio chunks
+  // whenever audio chunk come in => transcribe & update parent
   const handleAudioChunk = useCallback(async (blob: Blob) => {
     try {
       setRecordingState('processing');
-      // In a real app, send to API for transcription
+
+      // for real time app we would send DIS BLOB to API for transcription
       const transcription = await mockTranscribeAudio(blob);
       
-      // Create a transcription chunk
+      // build a chunk object to send up
       const chunk: TranscriptionChunk = {
         id: Date.now().toString(),
         text: transcription,
@@ -40,9 +51,11 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({
     }
   }, [onTranscriptionUpdate, onError]);
   
-  // Start recording
+  // start recording audio
   const startRecording = async () => {
     try {
+
+      // create new recorder & start it (auto)
       const newRecorder = new AudioRecorderUtil(handleAudioChunk);
       await newRecorder.start();
       setRecorder(newRecorder);
@@ -55,7 +68,7 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({
     }
   };
   
-  // Stop recording
+  // stop recording audip
   const stopRecording = () => {
     if (recorder) {
       recorder.stop();
@@ -65,7 +78,7 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({
     }
   };
   
-  // Timer for recording duration
+  // keep a time while recording
   useEffect(() => {
     let interval: NodeJS.Timeout | null = null;
     
@@ -82,7 +95,7 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({
     };
   }, [isRecording]);
   
-  // Format time as mm:ss
+  // formatting (mm:ss referenced by for display)
   const formatTime = (seconds: number): string => {
     const mins = Math.floor(seconds / 60).toString().padStart(2, '0');
     const secs = (seconds % 60).toString().padStart(2, '0');
@@ -107,6 +120,7 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({
         </div>
         
         <div className="flex space-x-3">
+          {/* show tha right btn depending on what we doing*/}
           {!isRecording ? (
             <button
               onClick={startRecording}

@@ -1,4 +1,6 @@
-// src/components/Header.tsx
+
+// src/components/Header.tsx by rasulov
+
 import React from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
@@ -9,6 +11,7 @@ const Header: React.FC = () => {
   const [user, loading] = useAuthState(auth);
   const router = useRouter();
 
+  // this does work 
   const handleSignOut = async () => {
     try {
       await auth.signOut();

@@ -1,4 +1,6 @@
-// src/components/SummaryView.tsx
+
+// src/components/SummaryView.tsx by rasulov
+
 import React, { useState } from 'react';
 import { Summary } from '../types';
 
@@ -9,6 +11,7 @@ interface SummaryViewProps {
 const SummaryView: React.FC<SummaryViewProps> = ({ summary }) => {
   const [copied, setCopied] = useState(false);
 
+  // copying summary to clipboard
   const handleCopy = async () => {
     const text = formatSummaryForCopy(summary);
     await navigator.clipboard.writeText(text);
@@ -16,6 +19,7 @@ const SummaryView: React.FC<SummaryViewProps> = ({ summary }) => {
     setTimeout(() => setCopied(false), 2000);
   };
 
+  // format it as plain txt which it does-it-ninja
   const formatSummaryForCopy = (summary: Summary): string => {
     return `Meeting Summary
 
@@ -32,6 +36,7 @@ Highlights:
 ${summary.highlights.map(highlight => `• ${highlight}`).join('\n')}`;
   };
 
+  // rEuSaBlE
   const SummarySection: React.FC<{
     title: string;
     items: string[];

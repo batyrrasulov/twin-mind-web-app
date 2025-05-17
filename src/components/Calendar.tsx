@@ -1,3 +1,6 @@
+
+// src/components/Calendar.tsx by rasulov
+
 import React, { useState } from 'react';
 import { format, startOfMonth, endOfMonth, eachDayOfInterval, isSameMonth, isToday } from 'date-fns';
 
@@ -30,12 +33,18 @@ const mockEvents: CalendarEvent[] = [
 ];
 
 const Calendar: React.FC = () => {
+
+  // what month are we curr lookin at?
   const [currentDate, setCurrentDate] = useState(new Date());
   
+  // figure out start & end of curr month
   const monthStart = startOfMonth(currentDate);
   const monthEnd = endOfMonth(currentDate);
+
+  // get all days in this month
   const days = eachDayOfInterval({ start: monthStart, end: monthEnd });
 
+  // helper helper helper come in to get all events for a specific day
   const getEventsForDay = (day: Date) => {
     return mockEvents.filter(event => 
       event.date.getDate() === day.getDate() &&
