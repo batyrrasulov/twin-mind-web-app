@@ -1,7 +1,11 @@
+// these test might be written inspired by gpt-4.1 
+// testing the somewhat calendar flow
+
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import Calendar from '../components/Calendar';
 
+// let's try to free time so it becomes more predictable
 beforeAll(() => {
   jest.useFakeTimers().setSystemTime(new Date(2024, 3, 15));
 });
@@ -13,11 +17,11 @@ describe('Calendar', () => {
   it('renders calendar with current month', () => {
     render(<Calendar />);
     
-    // Check if month navigation buttons are present
+    // making sure the nav button shows up
     expect(screen.getByText('Previous')).toBeInTheDocument();
     expect(screen.getByText('Next')).toBeInTheDocument();
     
-    // Check if days of week are present
+    // days of week = always visible
     expect(screen.getByText('Sun')).toBeInTheDocument();
     expect(screen.getByText('Mon')).toBeInTheDocument();
     expect(screen.getByText('Tue')).toBeInTheDocument();
@@ -30,7 +34,7 @@ describe('Calendar', () => {
   it('displays mock events correctly', () => {
     render(<Calendar />);
     
-    // Check if mock events are displayed
+    // mock events on the calendar shown up
     expect(screen.getByText('Team Standup')).toBeInTheDocument();
     expect(screen.getByText('Project Review')).toBeInTheDocument();
     expect(screen.getByText('Submit Report')).toBeInTheDocument();
@@ -39,19 +43,19 @@ describe('Calendar', () => {
   it('navigates between months', () => {
     render(<Calendar />);
     
-    // Get current month's first day
+    // grab the 1 for the curr month so we can check if it disappears
     const currentMonthFirstDay = screen.getByText('1');
     
-    // Click next month
+    // try going onto the next month
     fireEvent.click(screen.getByText('Next'));
     
-    // Check if the view has changed
+    // 1st day of prev month NOT visible no more
     expect(currentMonthFirstDay).not.toBeInTheDocument();
     
-    // Click previous month
+    // now go back to prev month
     fireEvent.click(screen.getByText('Previous'));
     
-    // Check if we're back to the original month
+    // we should see 1 again for OG month
     expect(screen.getByText('1')).toBeInTheDocument();
   });
 }); 

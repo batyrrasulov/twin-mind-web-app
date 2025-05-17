@@ -1,3 +1,6 @@
+// these test might be written inspired by gpt-4.1 
+// testing the somewhat chat interface
+
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -5,7 +8,7 @@ import ChatInterface from '../components/ChatInterface';
 import { mockStreamingResponse } from '../utils/mockData';
 import { ChatMessage, TranscriptionChunk } from '../types';
 
-// Mock the mockStreamingResponse function
+// we gon mock streaming response here
 jest.mock('../utils/mockData', () => ({
   mockStreamingResponse: jest.fn(() => ['Hello', 'this', 'is', 'a', 'test', 'response'])
 }));
@@ -28,6 +31,7 @@ describe('ChatInterface', () => {
       />
     );
 
+    // show a prompt when no messages yet
     expect(screen.getByText('Ask questions about the meeting transcript.')).toBeInTheDocument();
   });
 
@@ -40,14 +44,15 @@ describe('ChatInterface', () => {
       />
     );
 
+    // find input & send btn
     const input = screen.getByPlaceholderText('Ask about the meeting transcript...');
     const sendButton = screen.getByText('Send');
 
-    // Type and submit a message
+    // type & click send a msg
     await userEvent.type(input, 'Test message');
     fireEvent.click(sendButton);
 
-    // Check if user message was added
+    // check if user msg  added
     expect(mockOnNewMessage).toHaveBeenCalledWith(
       expect.objectContaining({
         text: 'Test message',
@@ -55,7 +60,7 @@ describe('ChatInterface', () => {
       })
     );
 
-    // Wait for AI response
+    // wait for AI response to come thru
     await waitFor(() => {
       expect(mockOnNewMessage).toHaveBeenCalledWith(
         expect.objectContaining({
@@ -78,15 +83,15 @@ describe('ChatInterface', () => {
     const input = screen.getByPlaceholderText('Ask about the meeting transcript...');
     const sendButton = screen.getByText('Send');
 
-    // Submit a message
+    // again type & send a message
     await userEvent.type(input, 'Test message');
     fireEvent.click(sendButton);
 
-    // Check if input is disabled
+    // btns be disabled when waiting
     expect(input).toBeDisabled();
     expect(sendButton).toBeDisabled();
 
-    // Wait for response to complete
+    // after response done => they should be re-enabled
     await waitFor(() => {
       expect(input).not.toBeDisabled();
       expect(sendButton).not.toBeDisabled();

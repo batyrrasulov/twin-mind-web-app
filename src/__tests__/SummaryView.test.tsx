@@ -1,8 +1,12 @@
+// these test might be written inspired by gpt-4.1 
+// testing the somewhat summary view right
+
 import '@testing-library/jest-dom';
 import React from 'react';
 import { render, screen, fireEvent, act } from '@testing-library/react';
 import SummaryView from '../components/SummaryView';
 
+// just sum summary daya to use in tests
 const mockSummary = {
   keyPoints: ['Key point 1', 'Key point 2'],
   actionItems: ['Action 1', 'Action 2'],
@@ -12,7 +16,7 @@ const mockSummary = {
 
 describe('SummaryView', () => {
   beforeEach(() => {
-    // Mock clipboard API
+    // clipboard API to test copy functionality
     Object.assign(navigator, {
       clipboard: {
         writeText: jest.fn()
@@ -23,7 +27,7 @@ describe('SummaryView', () => {
   it('renders all summary sections', () => {
     render(<SummaryView summary={mockSummary} />);
     
-    // Check if all sections are rendered
+    // should show all section headers
     expect(screen.getByText('Key Points')).toBeInTheDocument();
     expect(screen.getByText('Action Items')).toBeInTheDocument();
     expect(screen.getByText('Decisions')).toBeInTheDocument();
@@ -33,7 +37,7 @@ describe('SummaryView', () => {
   it('displays all summary items', () => {
     render(<SummaryView summary={mockSummary} />);
     
-    // Check if all items are displayed
+    // making sure every item from our mock summary show up
     mockSummary.keyPoints.forEach(point => {
       expect(screen.getByText(point)).toBeInTheDocument();
     });
@@ -54,14 +58,17 @@ describe('SummaryView', () => {
   it('handles copy to clipboard', async () => {
     jest.useFakeTimers();
     render(<SummaryView summary={mockSummary} />);
-    // Click copy button
+
+    // clicking copy btn
     await act(async () => {
       fireEvent.click(screen.getByText('Copy to Clipboard'));
       jest.runAllTimers();
     });
-    // Check if clipboard API was called
+
+    // check if clipboard API called
     expect(navigator.clipboard.writeText).toHaveBeenCalled();
-    // Check if button text changes to "Copied!"
+
+    // btn txt change to Copied after click
     expect(await screen.findByText('✓ Copied!')).toBeInTheDocument();
     jest.useRealTimers();
   });
