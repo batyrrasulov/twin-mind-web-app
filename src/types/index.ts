@@ -1,4 +1,7 @@
-// src/types/index.ts
+
+// src/types/index.ts by rasulov
+
+// love this below mandem
 
 export interface User {
   uid: string;

@@ -1,4 +1,8 @@
-// src/pages/meeting.tsx
+
+// src/pages/meeting.tsx by rasulov
+
+// the whole thing started from here
+
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import AuthGuard from '../components/AuthGuard';

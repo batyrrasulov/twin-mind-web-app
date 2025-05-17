@@ -1,4 +1,8 @@
-// src/utils/mockData.ts
+
+// src/utils/mockData.ts by rasulov
+
+// u know that this has been reworked but still good
+
 import { Meeting, TranscriptionChunk, ChatMessage, Summary } from '../types';
 
 // Mock calendar events

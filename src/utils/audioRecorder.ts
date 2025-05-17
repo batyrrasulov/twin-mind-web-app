@@ -1,4 +1,8 @@
-// src/utils/audioRecorder.ts
+
+// src/utils/audioRecorder.ts by rasulov
+
+// very interesting to learn this
+
 import { v4 as uuidv4 } from 'uuid';
 
 export class AudioRecorder {

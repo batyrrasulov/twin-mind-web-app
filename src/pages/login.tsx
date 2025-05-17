@@ -1,4 +1,8 @@
-// src/pages/login.tsx
+
+// src/pages/login.tsx by rasulov
+
+// if u wondering who rasulov is that's just my last name
+
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { signInWithPopup } from 'firebase/auth';

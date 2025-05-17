@@ -1,9 +1,12 @@
-// src/utils/firebase.ts
+
+// src/utils/firebase.ts by rasulov
+
+// pretty simple ngl
+
 import { initializeApp } from 'firebase/app';
 import { getAuth, GoogleAuthProvider } from 'firebase/auth';
 
-// Your web app's Firebase configuration
-// Replace with your actual Firebase config when deploying
+// my web app's Firebase config
 const firebaseConfig = {
   apiKey: "AIzaSyCwHm9gJJStepSSJl-KC1_dZlftXZFGa_Q",
   authDomain: "test-twin-mind-web-app.firebaseapp.com",
@@ -14,7 +17,7 @@ const firebaseConfig = {
   measurementId: "G-XRBNK4F61N"
 };
 
-// Initialize Firebase
+// init FB
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const googleProvider = new GoogleAuthProvider();

@@ -1,4 +1,8 @@
-// src/pages/summary.tsx
+
+// src/pages/summary.tsx by rasulov
+
+// this was not intended to be like this
+
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import AuthGuard from '../components/AuthGuard';

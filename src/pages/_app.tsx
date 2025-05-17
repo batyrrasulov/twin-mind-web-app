@@ -1,4 +1,7 @@
-// src/pages/_app.tsx
+
+// src/pages/_app.tsx by help from looking at other exsiting AI tools 
+// and tryna replicat em
+
 import React from 'react';
 import type { AppProps } from 'next/app';
 import { useEffect, useState } from 'react';

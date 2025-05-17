@@ -1,4 +1,8 @@
-// src/pages/index.tsx
+
+// src/pages/index.tsx by rasulov
+
+// what is this?
+
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import AuthGuard from '../components/AuthGuard';
