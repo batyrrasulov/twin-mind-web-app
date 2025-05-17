@@ -17,7 +17,23 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({
   const [inputValue, setInputValue] = useState('');
   const [isGenerating, setIsGenerating] = useState(false);
   const [streamingText, setStreamingText] = useState('');
+  const [typingIndicator, setTypingIndicator] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const typingTimeoutRef = useRef<NodeJS.Timeout>();
+
+  const simulateTyping = async (text: string) => {
+    setTypingIndicator(true);
+    let currentText = '';
+    
+    for (let i = 0; i < text.length; i++) {
+      await new Promise(resolve => setTimeout(resolve, 20)); // Adjust speed here
+      currentText += text[i];
+      setStreamingText(currentText);
+    }
+    
+    setTypingIndicator(false);
+    return currentText;
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -39,21 +55,19 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({
     setIsGenerating(true);
     setStreamingText('');
     
-    // Get streaming response parts
-    const responseWords = mockStreamingResponse(inputValue);
+    // Simulate thinking delay
+    await new Promise(resolve => setTimeout(resolve, 1000));
     
-    // Simulate streaming response
-    let fullResponse = '';
-    for (const word of responseWords) {
-      await new Promise(resolve => setTimeout(resolve, 50));
-      fullResponse += word + ' ';
-      setStreamingText(fullResponse.trim());
-    }
+    // Get streaming response
+    const responseText = mockStreamingResponse(inputValue).join(' ');
+    
+    // Simulate typing the response
+    const fullResponse = await simulateTyping(responseText);
     
     // Add final AI message
     const aiMessage: ChatMessage = {
       id: (Date.now() + 1).toString(),
-      text: fullResponse.trim(),
+      text: fullResponse,
       sender: 'ai',
       timestamp: Date.now()
     };
@@ -67,6 +81,15 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, streamingText]);
+
+  // Cleanup typing timeout
+  useEffect(() => {
+    return () => {
+      if (typingTimeoutRef.current) {
+        clearTimeout(typingTimeoutRef.current);
+      }
+    };
+  }, []);
 
   return (
     <div className="card my-4">
@@ -103,7 +126,9 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({
                 <div className="flex justify-start">
                   <div className="max-w-3/4 rounded-lg px-4 py-2 bg-white border border-gray-200">
                     {streamingText}
-                    <span className="inline-block w-2 h-4 ml-1 bg-gray-400 animate-pulse"></span>
+                    {typingIndicator && (
+                      <span className="inline-block w-2 h-4 ml-1 bg-gray-400 animate-pulse"></span>
+                    )}
                   </div>
                 </div>
               )}

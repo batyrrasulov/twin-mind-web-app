@@ -5,12 +5,13 @@ import { getAuth, GoogleAuthProvider } from 'firebase/auth';
 // Your web app's Firebase configuration
 // Replace with your actual Firebase config when deploying
 const firebaseConfig = {
-  apiKey: "AIzaSyA1234567890-EXAMPLE-KEY",
-  authDomain: "meeting-transcription-app.firebaseapp.com",
-  projectId: "meeting-transcription-app",
-  storageBucket: "meeting-transcription-app.appspot.com",
-  messagingSenderId: "123456789012",
-  appId: "1:123456789012:web:abcdef1234567890"
+  apiKey: "AIzaSyCwHm9gJJStepSSJl-KC1_dZlftXZFGa_Q",
+  authDomain: "test-twin-mind-web-app.firebaseapp.com",
+  projectId: "test-twin-mind-web-app",
+  storageBucket: "test-twin-mind-web-app.firebasestorage.app",
+  messagingSenderId: "138501918326",
+  appId: "1:138501918326:web:fe0cbbfcd76dfac9a25957",
+  measurementId: "G-XRBNK4F61N"
 };
 
 // Initialize Firebase
