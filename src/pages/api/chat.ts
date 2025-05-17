@@ -1,4 +1,6 @@
-// src/pages/api/chat.ts
+
+// src/pages/api/chat.ts by rasulov
+
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 type ChatMessage = {
@@ -19,6 +21,8 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<ChatResponse | { error: string }>
 ) {
+
+  // ONLY POST reqs allowed for dis endpoint
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
@@ -32,19 +36,22 @@ export default async function handler(
 
     // For MVP, we'll use a simple mock response system
     // In a real implementation, this would call an AI service like OpenAI
+    // if u wonder why check README for further explanation
     
-    // Get the last user message
+    // get the last user message
     const lastUserMessage = messages.filter(m => m.role === 'user').pop();
     
-    // Generate mock response based on input
+    // generate  response based on input
     let reply = '';
     
     if (transcription) {
-      // If there's a transcription, generate a response about the audio
+
+      // if there's a transcription => generate a response about the audio
       reply = `I've analyzed the audio transcription: "${transcription.substring(0, 50)}${transcription.length > 50 ? '...' : ''}". ` + 
               `Based on this, I would recommend focusing on improving your pronunciation of key terms.`;
     } else if (lastUserMessage) {
-      // Generate a response based on the last user message
+
+      // generate a response based on the last user message
       const content = lastUserMessage.content.toLowerCase();
       
       if (content.includes('hello') || content.includes('hi')) {
@@ -66,6 +73,8 @@ export default async function handler(
     // 1. Send the messages to an AI service
     // 2. Stream the response back to the client
     // 3. Handle rate limiting, errors, etc.
+
+    // same thing here -//-
 
     return res.status(200).json({ reply });
   } catch (error) {

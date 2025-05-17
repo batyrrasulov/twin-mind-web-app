@@ -1,4 +1,10 @@
-// src/pages/api/summary.ts
+
+// src/pages/api/summary.ts by rasulov
+
+// whole .../src/pages/api stuff is core logic ik 
+// but i kinda was running outta time so here what we got
+// flow is there but not real time or (live API connection)
+
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 type SummaryRequest = {
