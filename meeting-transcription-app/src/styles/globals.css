@@ -1,0 +1,40 @@
+/* src/styles/globals.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply bg-background text-text-primary;
+}
+
+.container {
+  @apply max-w-5xl mx-auto px-4 py-8;
+}
+
+.btn {
+  @apply px-4 py-2 rounded-md font-medium transition-colors;
+}
+
+.btn-primary {
+  @apply bg-primary text-white hover:bg-opacity-90;
+}
+
+.btn-secondary {
+  @apply bg-secondary text-white hover:bg-opacity-90;
+}
+
+.btn-outline {
+  @apply border border-gray-300 hover:bg-gray-100;
+}
+
+.card {
+  @apply bg-white rounded-lg shadow-md p-6;
+}
+
+.input {
+  @apply w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary;
+}
+
+.loader {
+  @apply w-6 h-6 border-4 border-gray-200 rounded-full border-t-primary animate-spin;
+}
