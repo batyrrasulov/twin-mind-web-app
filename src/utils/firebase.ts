@@ -5,9 +5,6 @@
 
 import { initializeApp } from 'firebase/app';
 import { getAuth, GoogleAuthProvider } from 'firebase/auth';
-import dotenv from 'dotenv';
-
-dotenv.config();
 
 // my web app's Firebase config
 const firebaseConfig = {
